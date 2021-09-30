@@ -1,0 +1,79 @@
+{
+  "contributors": [
+    {
+      "email": "brodriguez@magnite.com",
+      "name": "Brad Rodriguez"
+    }
+  ],
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@hapi/hapi": "^18.3.2",
+    "@hapi/inert": "^5.2.2",
+    "moment": "^2.24.0"
+  },
+  "description": "Node.js service for tetsing safari cookies",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^7.5.0",
+    "ajv": "^6.5.0",
+    "babel-eslint": "^9.0.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.14.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-import-resolver-babel-module": "^5.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.1",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^1.1.2",
+    "jest-cli": "^24.1.0",
+    "jest-fetch-mock": "^1.5.0",
+    "nodemon": "^1.17.4",
+    "standard-version": "^4.4.0"
+  },
+  "files": [
+    "src"
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm test"
+    }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "testURL": "file:/"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "hapi",
+    "hapijs",
+    "javascript",
+    "service"
+  ],
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "name": "safari-cookie-test",
+  "scripts": {
+    "dist": "babel src -d dist --presets @babel/env --plugins=babel-plugin-module-resolver",
+    "docker-test": "docker build -t safari-cookie-test . && docker run -p 8080:8080 safari-cookie-test",
+    "jest": "cross-env NODE_ENV=test ./node_modules/.bin/jest src --forceExit",
+    "lint": "./node_modules/.bin/eslint --format=pretty src",
+    "prerelease": "npm run build",
+    "release": "./node_modules/.bin/standard-version --tag-prefix=''",
+    "serve": "node dist/index.js",
+    "start": "./node_modules/.bin/nodemon src/index.js --exec babel-node --presets @babel/env",
+    "test": "npm run lint"
+  },
+  "version": "1.0.0"
+}
